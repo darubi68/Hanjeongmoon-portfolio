@@ -1,0 +1,972 @@
+@import 'mixin.scss';
+@import 'variables.scss';
+
+.show-1200,.show-992,.show-768,.show-576 {
+    display: none;
+}
+
+
+#main {
+    width: 100%;
+    height: 100svh;
+    @include flex(flex-end, flex-end);
+    overflow: hidden;
+}
+
+.main-text {
+    width: calc(50% - 4rem);
+    height: 100%;
+    max-width: $max-width/2;
+    padding: calc(10rem + 50px) 4rem 10rem 0;
+    @include flex(center, flex-start);
+    flex-direction: column;
+
+    .text-obj {
+        margin-bottom: 1rem;
+        display: flex;
+
+        span {
+            position: relative;
+            animation: text 1.5s infinite;
+            font-size: 4.4rem;
+            font-weight: 600;
+
+            @for $i from 1 through 7 {
+                &:nth-child(#{$i}) {
+                    animation-delay: 0.1s * $i;
+                }
+            }
+        }
+
+        img {
+            width: 5rem;
+            margin-left: 0.5rem;
+            object-fit: contain;
+            object-position: 0 30%;
+            animation: hand 1.5s infinite;
+        }
+    }
+
+    .text-greetings {
+        font-size: min(3.3rem, 3.5vw);
+        line-height: min(4.3rem, 4.5vw);
+        margin-bottom:4rem;
+    }
+
+    .text-introduction {
+        font-size: min(1.3rem, 1.5vw);
+        line-height: min(2.3rem, 2.5vw);
+    }
+}
+
+@keyframes text {
+    0% {
+        top: 0;
+    }
+
+    20% {
+        top: -0.5rem;
+    }
+
+    40% {
+        top: 0
+    }
+
+    60% {
+        top: 0
+    }
+
+    80% {
+        top: 0
+    }
+
+    100% {
+        top: 0
+    }
+}
+
+@keyframes hand {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-20deg);
+    }
+}
+
+.main-img {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0 0 0 10rem;
+    background-color: $primery-2;
+    position: relative;
+
+    .main-imgGrid {
+        @include col-grid(repeat(3, 1fr));
+        transform: rotate(35deg);
+        height: 125%;
+        position: absolute;
+        top: -15%;
+        left: -180px;
+
+        .main-imgBox {
+            & .original {
+                animation: rolling1 15s linear infinite;
+            }
+
+            & .clone {
+                animation: rolling2 15s linear infinite;
+            }
+
+            & .ios-type {
+                transform: translate3d(0, -12%, 0);
+            }
+
+            img {
+                width: 100%;
+            }
+        }
+
+        &>:nth-child(2) {
+            & .original {
+                animation: rolling1 15s linear -4s infinite;
+            }
+
+            & .clone {
+                animation: rolling2 15s linear -4s infinite;
+            }
+
+            & .ios-type {
+                transform: translate3d(0, -30%, 0);
+            }
+        }
+    }
+}
+
+@keyframes rolling1 {
+    0% {
+        transform: translate3d(0, 0%, 0);
+    }
+
+    50% {
+        transform: translate3d(0, -100%, 0);
+    }
+
+    50.01% {
+        transform: translate3d(0, 100%, 0);
+    }
+
+    100% {
+        transform: translate3d(0, 0%, 0);
+    }
+}
+
+@keyframes rolling2 {
+    0% {
+        transform: translate3d(0, 0%, 0);
+    }
+
+    100% {
+        transform: translate3d(0, -200%, 0);
+    }
+}
+
+
+section,
+.section-grid {
+    width: 100%;
+}
+
+
+#about {
+    .section-grid {
+        padding: 0 4rem;
+        @include flex(center, flex-start);
+    }
+}
+
+.about-img {
+    top: 0;
+    width: 50%;
+    min-height: 100svh;
+    max-width: $max-width/2;
+    padding: 10rem 4rem 10rem 0;
+    position: sticky;
+
+    .about-imgBackground {
+        position: absolute;
+        width: calc(100% - 6rem);
+        max-width: 100%;
+        height: calc(100% - 22rem);
+        max-height:600px;
+        border: $dashed;
+        border-radius: 1rem;
+        right: 6rem;
+    }
+
+    img {
+        position: absolute;
+        max-width: calc(100% - 6rem);
+        height: calc(100% - 22rem);
+        max-height:600px;
+        border-radius: 1rem;
+        right: 4rem;
+        transform: translateY(2rem);
+        object-position: top;
+    }
+}
+
+.about-text {
+    width: 50%;
+    max-width: $max-width/2;
+    padding: 10rem 0;
+
+    .text-list>p {
+        line-height: 2rem;
+        padding-bottom: 1.5rem;
+
+        &:last-of-type {
+            padding-bottom: 5rem;
+        }
+    }
+
+
+    button {
+        margin-bottom: 5rem;
+
+        @media (min-width:993px) {
+            @include arrowButton(#fff, $primery-1);
+        }
+    }
+}
+
+.career-list {
+    &:not(:last-of-type) {
+        margin-bottom: 3rem;
+    }
+
+    .point-title {
+        color: $primery-1;
+
+        h2 {
+            font-size: 1.8rem;
+        }
+    }
+
+    ul {
+        li {
+            padding-top: 1rem;
+
+            strong {
+                display: block;
+                font-size: 1.2rem;
+                padding: 0.3rem 0;
+            }
+
+            p {
+                color: $text-subColor;
+            }
+        }
+    }
+}
+
+
+#design {
+    padding: 10rem 4rem;
+    background-color: $back-color;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    @include flex;
+
+    .section-grid {
+        width: 100%;
+        max-width: $max-width;
+    }
+}
+
+.design-head {
+    @include flex(space-between, center);
+    margin-bottom: 3rem;
+}
+
+.design-list {
+    .swiper-slide {
+        cursor: pointer;
+        opacity: 5;
+
+        &:not(.inactive):hover img {
+            scale: 1.1;
+        }
+
+        &.inactive {
+            filter: opacity(0.5);
+            cursor: initial;
+        }
+
+        .design-thumbnail {
+            height: 16rem;
+            border-radius: 1rem;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center top;
+                @include transition;
+            }
+        }
+
+        h4 {
+            font-size: 1.3rem;
+            padding: 1.5rem 0 0.4rem 0;
+        }
+    }
+
+    .swiper-button-next, .swiper-button-prev {
+        color:$primery-1;
+    }
+}
+
+
+
+#project {
+    padding: 10rem 4rem;
+    position: relative;
+    @include flex(center, center);
+
+    .section-grid {
+        max-width: $max-width;
+    }
+
+    .project-head {
+        @include flex(space-between, flex-end);
+        height: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .project-body {
+        width: 100%;
+        @include transition();
+
+        img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .project-item {
+        padding: 5rem;
+        @include flex(space-between, center);
+
+        &:not(:last-child) {
+            border-bottom: $dashed;
+        }
+    }
+
+    .project-thumbnail {
+        width: 45%;
+        height: 100%;
+        @include flex(center, center);
+    }
+
+    .project-content {
+        width: 50%;
+        height: 100%;
+
+        h4 {
+            margin-top: 0.2rem;
+            font-size: 1.8rem;
+        }
+
+        >*:not(button) {
+            padding-bottom: 2rem;
+        }
+
+        >div {
+            display: none;
+        }
+
+        dl {
+            dt {
+                font-weight: 600;
+                padding-bottom: 0.4rem;
+            }
+
+            & dd:not(:last-child) {
+                padding-bottom: 1rem;
+            }
+        }
+
+        p {
+            line-height: 2rem;
+        }
+
+        button {
+            @include arrowButton(#fff, $primery-1);
+        }
+    }
+
+    .project-background {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: rgba(205, 227, 216, 0.2);
+        left: 0;
+        bottom: 0;
+        z-index: -10;
+        pointer-events: none;
+        transition: none;
+        @include transition(opacity);
+        transform: translateY(100%);
+
+        &.scroll-on {
+            position: fixed;
+            @include transition();
+        }
+    }
+}
+
+
+
+
+#inactive-modal {
+    .modal-container {
+        position: relative;
+        max-width: 22rem;
+        background-color: $back-color;
+        border-radius: 50%;
+
+        &::after {
+            content: "";
+            display: block;
+            padding-bottom: 100%;
+        }
+
+        .modal-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            @include flex;
+            flex-direction: column;
+            span {
+                padding-bottom: 1rem;
+                color: $primery-1;
+                font-size: 1.6rem;
+                display: block;
+            }
+
+            p {
+                line-height: 1.6rem;
+                text-align: center;
+            }
+        }
+    }
+}
+
+#design-modal {
+
+    .loading {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-container {
+        width: 100%;
+        max-width: $max-width;
+        height: 100%;
+        overflow-y: auto;
+        padding-right: 8px;
+
+        img {
+            width: 100%;
+            display: block;
+        }
+    }
+}
+
+// 1200px 이하
+@include desktop {
+
+    .show-1200 {
+        display: block;
+    }
+
+    .hide-1200 {
+        display: none;
+    }
+
+    .main-text {
+        .text-obj {
+            span {
+                font-size: 3.8rem;
+            }
+
+            img {
+                width: 6vw;
+            }
+        }
+
+        .text-greetings {
+            font-size: min(3.3rem,3.4vw);
+            margin-bottom:2rem;
+        }
+
+        .text-introduction {
+            font-size: 1.2rem;
+            line-height: 2rem;
+        }
+    }
+
+    #project .project-item {
+        padding: 5rem 2rem 5rem 0;
+    }
+}
+
+
+// 992px 이하
+@include tablet {
+
+    .show-992 {
+        display: block;
+    }
+
+    #about .section-grid,
+    #design,
+    #project {
+        padding: 8rem 4rem;
+    }
+
+
+    #main {
+        display: inherit;
+        position: relative;
+    }
+
+    .main-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height:100%;
+        padding: calc(8rem + 50px) 4rem 8rem 4rem;
+        max-width: initial;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.85);
+        @include flex(center, center);
+
+        .text-obj {
+            img {
+                width: 4rem;
+            }
+        }
+
+        .text-greetings {
+            font-size: max(2rem, 4vw);
+            line-height: max(3rem, 5vw);
+            text-align: center;
+        }
+
+        .text-introduction {
+            text-align: center;
+            max-width:31rem;
+        }
+    }
+
+    .main-img {
+        width: 100%;
+        border-radius: 0;
+
+        .main-imgGrid {
+            .main-imgBox {
+                & .original {
+                    animation: rolling1 15s linear infinite;
+                }
+
+                & .clone {
+                    animation: rolling2 15s linear infinite;
+                }
+            }
+
+            &>:nth-child(2) {
+                & .original {
+                    animation: rolling1 15s linear -4s infinite;
+                }
+
+                & .clone {
+                    animation: rolling2 15s linear -4s infinite;
+                }
+            }
+        }
+    }
+
+
+    #about {
+        .section-grid {
+            display: inherit;
+        }
+    }
+
+    .about-img {
+        padding: 0;
+        width: 100%;
+        max-width: initial;
+        min-height: initial;
+        height: 56vh;
+        position: relative;
+        margin-bottom: 3rem;
+
+        .about-imgBackground {
+            height: calc(100% - 2rem);
+            width: calc(56vh * 0.7);
+            left: 0;
+        }
+
+        img {
+            height: calc(100% - 2rem);
+            width: calc(56vh * 0.7);
+            left: 2rem;
+            max-width: initial;
+        }
+
+    }
+
+    .about-text {
+        width: 100%;
+        max-width: initial;
+        padding: 0;
+
+        button {
+            padding: 0.8rem 5rem;
+            border-radius: 1.6rem;
+            border: 1px solid $primery-1;
+            background-color: transparent;
+            color: $primery-1;
+
+            &>:first-child {
+                display: none;
+            }
+        }
+    }
+
+    .design-list .swiper-wrapper .swiper-slide:not(.inactive):hover img {
+        scale: initial;
+    }
+
+    #project {
+        .project-list {
+            @include col-grid(repeat(2, 1fr), 4rem 2rem);
+
+            @each $color,
+            $sub in $project-color {
+                $i: index(($project-color), ($color $sub)) * 1;
+
+                &>:nth-child(#{$i}) .project-thumbnail {
+                    background-color: $color;
+                }
+            }
+
+            .project-content {
+                pointer-events: none;
+                width: 100%;
+                height: initial;
+
+                >* {
+                    padding-bottom: 0;
+                }
+
+                h4 {
+                    font-size: 1.5rem;
+                    padding: 0.3rem 0;
+                    margin-top: 0;
+                }
+
+                >div {
+                    display: block;
+
+                    p {
+                        padding-bottom: 1rem;
+                        line-height: initial;
+                    }
+
+                    .keyword {
+                        display: inline-flex;
+                        margin-bottom: 0.2rem;
+                        border: 2px solid transparent;
+                        border-radius: 15px;
+                        background-origin: border-box;
+                        background-clip: content-box, border-box;
+
+                        small {
+                            font-weight: 600;
+                            padding: 0.2rem 1rem;
+                            display: inline-flex;
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                        }
+                    }
+                }
+
+                >dl,
+                >p,
+                >button {
+                    display: none;
+                }
+            }
+
+            @each $color,
+            $sub in $project-color {
+                $i: index(($project-color), ($color $sub)) * 1;
+
+                &>:nth-child(#{$i}) .keyword {
+                    background-image: linear-gradient(#fff, #fff), linear-gradient(to bottom, $color 0%, $sub 100%);
+
+                    small {
+                        background: linear-gradient(to bottom, $color 0%, $sub 100%);
+                    }
+                }
+            }
+        }
+
+        .project-item {
+            padding: 0;
+            display: block;
+            border-bottom: 0;
+            cursor: pointer;
+
+            &:not(:last-child) {
+                border-bottom: 0;
+            }
+
+            &:hover .project-thumbnail img {
+                scale: 1.1;
+            }
+        }
+
+        .project-thumbnail {
+            width: 100%;
+            height: 18rem;
+            @include flex(center, center);
+            border-radius: 2rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+            pointer-events: none;
+
+            img {
+                @include transition;
+            }
+        }
+
+        .project-background {
+            display: none;
+        }
+    }
+
+    #design-modal {
+        padding: 4rem;
+
+        .modal-content {
+            max-width: initial;
+        }
+    }
+}
+
+
+// 768px 이하
+@include mobile {
+    
+    .show-768 {
+        display: block;
+    }
+
+    #about .section-grid,
+    #design,
+    #project {
+        padding: 6rem 2rem;
+    }
+
+    .main-text {
+        padding: calc(6rem + 50px) 2rem 6rem 2rem;
+
+        .text-obj {
+            span {
+                font-size: 3.2rem;
+            }
+
+            img {
+                width: 3.4rem;
+            }
+        }
+
+        .text-greetings {
+            font-size: 1.8rem;
+            line-height: 2.8rem;
+        }
+    }
+
+    .about-img {
+        height: 50vh;
+    }
+
+    .about-text {
+        .text-list>p {
+            line-height: 1.8rem;
+        }
+
+        button {
+            margin-bottom: 4rem;
+        }
+    }
+
+    .career-list {
+
+        .point-title h2 {
+            font-size: 1.6rem;
+        }
+
+        ul {
+            li {
+                padding: 0.4rem 0;
+
+                &:first-of-type {
+                    padding-top: 0.6rem;
+                }
+
+                strong {
+                    font-size: 1.1rem;
+                    padding: 0.2rem 0;
+                }
+            }
+        }
+    }
+
+    .design-list .swiper-slide h4 {
+        font-size: 1.2rem;
+        padding: 1.2rem 0 0.2rem 0;
+    }
+
+    #project {
+        .project-list {
+            @include col-grid(initial, 3rem 0);
+
+            .project-content h4 {
+                font-size: 1.4rem;
+                padding: 0.2rem 0;
+            }
+        }
+    }
+
+    #inactive-modal .modal-container {
+        max-width: 19rem;
+
+        .modal-content {
+            span {
+                font-size: 1.4rem;
+                padding-bottom: 0.5rem;
+            }
+
+            p {
+                line-height: 1.4rem;
+            }
+        }
+    }
+}
+
+
+// 576px 이하
+@include mini {
+
+    .show-576 {
+        display: block;
+    }
+
+    #about .section-grid,
+    #design,
+    #project {
+        padding: 6rem 1rem;
+    }
+
+    .main-text {
+        padding: calc(6rem + 50px) 1rem 6rem 1rem;
+
+        .text-obj {
+            margin-bottom: 1.5rem;
+
+            span {
+                font-size: 2.8rem;
+            }
+
+            img {
+                width: 3rem;
+            }
+        }
+
+        .text-greetings {
+            max-width:20rem;
+        }
+
+        .text-introduction {
+            max-width:28rem;
+            font-size: 1.1rem;
+            line-height: 1.8rem;
+        }
+    }
+
+    .about-img {
+        margin-bottom: 2rem;
+        min-height: 25rem;
+        height: 44vh;
+
+        .about-imgBackground {
+            display: none;
+        }
+
+        img {
+            object-position: top;
+            height: 100%;
+            width: 100%;
+            max-width: 20rem;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .about-text {
+        >p {
+            padding-bottom: 1rem;
+        }
+    }
+
+    .career-list {
+        &:not(:last-of-type) {
+            margin-bottom: 2.4rem;
+        }
+
+        .point-title h2 {
+            font-size: 1.5rem;
+        }
+    }
+
+    .design-head {
+        margin-bottom: 2rem;
+    }
+
+    #project {
+        .project-list {
+            .project-content h4 {
+                font-size: 1.3rem;
+            }
+        }
+
+        .project-thumbnail {
+            height: 16rem;
+        }
+    }
+
+    #design-modal {
+        padding: 4rem 1rem 1rem;
+    }
+}

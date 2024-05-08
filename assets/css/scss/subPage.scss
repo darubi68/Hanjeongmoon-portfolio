@@ -1,0 +1,378 @@
+@import 'mixin.scss';
+@import 'variables.scss';
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.header-container {
+    span {
+        font-size: 1.4rem;
+    }
+}
+
+main {
+    min-height:100svh;
+    height:auto;
+    padding:10rem 4rem;
+    overflow: hidden;
+    @include flex();
+
+    .main-grid {
+        max-width:$max-width;
+        @include flex(space-between);
+    }
+
+    .main-img {
+        width: 45%;
+        @include flex;
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+
+    .main-text {
+        width: 52%;
+
+        >h2 {
+            padding: 0.5rem 0 2rem;
+        }
+
+        >div {
+            padding-bottom:2rem;
+            strong {
+                font-size: 1.2rem;
+                padding-bottom: 0.5rem;
+                display: block;
+            }
+
+            p {
+                padding-bottom: 1rem;
+            }
+
+            .keyword {
+                display: inline-block;
+                padding: 0.1rem 1.4rem;
+                border-radius: 2rem;
+                font-size: 0.9rem;
+                margin-bottom: 0.2rem;
+            }
+        }
+
+        >p {
+            padding-bottom: 1.2rem;
+            line-height: 2rem;
+            &:last-child {
+                padding-bottom: 0;
+            }
+        }
+    }
+
+    @each $color,
+    $sub in $project-color {
+        $i: index(($project-color), ($color $sub)) * 1;
+
+        &.main-#{$i} {
+            background-color: $color;
+
+            .keyword {
+                border: 2px solid $sub;
+                color: $sub;
+            }
+        }
+    }
+
+}
+
+
+.content-detail {
+    padding: 10rem 4rem;
+    @include flex($a:flex-start);
+
+    .content-grid {
+        @include flex($a:flex-start);
+        max-width: $max-width;
+    }
+
+    .photo-gallery {
+        max-width: $max-width;
+        @include col-grid (repeat(3, 1fr), 4rem);
+
+        figure {
+        }
+        a {
+            width:100%;
+            img {
+                width:100%;
+                display: block;
+                border-radius: 1rem;
+                box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
+            }
+        }
+        figcaption {
+            display: none;
+        }
+    }
+
+    .pswp__caption__center {
+        text-align: center;
+    }
+}
+
+#pmsSolution .content-detail {
+    .photo-gallery {
+        @include col-grid (repeat(2, 1fr), 4rem);
+        width:70%;
+    }
+
+    .pmsSolution-video {
+        width:30%;
+        padding-left:4rem;
+        video {
+            width:100%;
+            margin-bottom:4rem;
+        }
+    }
+} 
+
+.page-navigation {
+    padding: 4rem;
+    @include flex;
+    background-color: $primery-2;
+
+    .section-grid {
+        width: 100%;
+        max-width: $max-width;
+        @include flex(space-between);
+
+        >div {
+            @include flex;
+            cursor: pointer;
+            @include transition(transform);
+
+            &.prev-page:hover {
+                transform: translateX(-0.4rem);
+            }
+
+            &.next-page:hover {
+                transform: translateX(0.4rem);
+            }
+
+            >* {
+                pointer-events: none;
+            }
+
+            p {
+                color: #fff;
+                padding: 0 0.4rem;
+            }
+
+            span {
+                color: #fff;
+                font-size: 2rem;
+            }
+
+            &:not([data-url]) {
+                visibility: hidden;
+            }
+        }
+
+        >span {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $back-color;
+            font-size: 1.2rem;
+            @include transition;
+            &:hover {
+                background-color: $primery-1;
+            }
+        }
+    }
+}
+
+footer {
+    background-color: #fff;
+}
+
+
+// 1200px 이하
+@include desktop {
+    h2 {
+        font-size: max(2rem, 3.2vw);
+    }
+
+    main {
+        padding: 100px 4rem 10rem;
+        display: block;
+        height: auto !important;
+
+        .main-grid {
+            display: block;
+        }
+
+        .main-img,
+        .main-text {
+            width: 100%;
+        }
+
+        .main-img {
+            height: 50vh;
+            margin-bottom: 2rem;
+        }
+    }
+
+    .content-detail .photo-gallery {
+        gap: 3rem 2rem;
+        a img {
+            border-radius: 0.5rem;
+        }
+    }
+
+    #pmsSolution .content-detail {
+        .photo-gallery {
+            @include col-grid (repeat(2, 1fr), 3rem 2rem);
+        }
+        .pmsSolution-video {
+            padding-left:2rem;
+            video {
+                margin-bottom:3rem;
+            }
+        }
+    }
+}
+
+
+// 992px 이하
+@include tablet {
+    main {
+        padding: 100px 4rem 8rem;
+    }
+
+    .content-detail {
+        padding: 8rem 4rem;
+    }
+
+    .page-navigation {
+        padding: 3rem 4rem;
+    }
+
+    footer .section-grid{
+        background-color: #fff;
+
+        .contact-head strong {
+            color: $primery-2;
+        }
+    }
+}
+
+
+// 768px 이하
+@include mobile {
+    .header-container span {
+        font-size: 1.2rem;
+    }
+
+    main {
+        padding: 80px 2rem 6rem;
+
+        .main-text {
+            >p {
+                line-height: 1.8rem;
+            }
+        }
+    }
+
+    .content-detail {
+        padding: 6rem 2rem;
+    }
+
+    #pmsWeb .content-detail .photo-gallery,
+    #webCCTV .content-detail .photo-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #pmsSolution .content-detail {
+        .photo-gallery {
+            width:60%;
+            grid-template-columns: repeat(1, 1fr);
+        }
+        .pmsSolution-video {
+            width:40%;
+        }
+    }
+
+
+    .page-navigation {
+        padding: 2rem;
+
+        .section-grid {
+            >div span {
+                font-size: 1.8rem;
+            }
+            >span {
+                font-size: 1rem;
+                width: 2.2rem;
+                height: 2.2rem;
+            }
+        }
+    }
+}
+
+
+// 576px 이하
+@include mini {
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    main {
+        padding:80px 1rem 6rem;
+
+        .main-img {
+            height: 42vh;
+            margin-bottom: 1rem;
+        }
+    }
+
+    .content-detail {
+        padding: 6rem 1rem;
+
+        .photo-gallery {
+            gap:2rem 1rem;
+            a img {
+                border-radius: 0.3rem;
+            }
+        }
+    }
+
+    #pmsSolution .content-detail {
+        .photo-gallery {
+            width:60%;
+            gap:2rem 1rem;
+        }
+
+        .pmsSolution-video {
+            width:40%;
+            padding-left:1rem;
+            video {
+                margin-bottom:2rem;
+            }
+        }
+    } 
+
+    .page-navigation {
+        padding: 2rem 1rem;
+
+        .section-grid>div span {
+            font-size: 1.6rem;
+        }
+    }
+}

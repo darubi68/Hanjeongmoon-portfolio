@@ -1,0 +1,606 @@
+@import 'font.scss';
+@import 'mixin.scss';
+@import 'variables.scss';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $en, $kr, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-weight: 300;
+    font-size: 1rem;
+    background-color: #fff;
+    color: $text-color;
+
+    &.before-load,
+    &.open-nav {
+        overflow: hidden;
+    }
+}
+
+.before-load {
+    .loading {
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+    text-decoration: none;
+    color: $text-color;
+    display: inline-block;
+}
+
+select {
+    appearance: none;
+
+    &::-ms-expand {
+        display: none;
+    }
+}
+
+img {
+    object-fit: cover;
+}
+
+h1,
+h2 {
+    text-transform: capitalize;
+}
+
+h3,
+h4,
+h5 {
+    font-weight: 600;
+}
+
+p.b-text {
+    font-size: 1.1rem;
+}
+
+i,
+.icon {
+    cursor: pointer;
+}
+
+button {
+    border: none;
+    background-color: transparent;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+strong {
+    font-weight: 600;
+}
+
+.point-title {
+    @include flex(flex-start, flex-start);
+
+    h3 {
+        font-size: 2.6rem;
+    }
+
+    div {
+        width: 0.5rem;
+        height: 0.5rem;
+        background-color: $primery-1;
+    }
+}
+
+
+// 로딩
+.loading {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #fff;
+    @include transition();
+    @include flex;
+    opacity: 0;
+    z-index: -999;
+}
+
+
+.loading-circle {
+    width: 5rem;
+    height: 5rem;
+    animation: loadingSpin 3s infinite;
+
+    circle {
+        fill: transparent;
+
+        stroke: $primery-1 {
+            width: 4;
+            dasharray: 157;
+            dashoffset: 0;
+        }
+
+        animation: loadingAnimation 1s infinite;
+    }
+}
+
+@keyframes loadingSpin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loadingAnimation {
+    0% {
+        stroke-dashoffset: 157;
+    }
+
+    75% {
+        stroke-dashoffset: -117;
+    }
+
+    100% {
+        stroke-dashoffset: -157;
+    }
+}
+
+
+// 메뉴, 타이틀
+header {
+    width: 100%;
+    height: 80px;
+    padding: 0 4rem;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.1);
+    z-index: 700;
+    @include transition($duration:0.5s);
+
+    &::before {
+        content: " ";
+        position: absolute;
+        inset: 0;
+        backdrop-filter: blur(15px);
+        z-index: -1;
+    }
+
+    .header-container {
+        width: 100%;
+        height: 100%;
+        max-width: $max-width;
+        margin: 0 auto;
+        @include flex(space-between, center);
+    }
+}
+
+.header-left-wrap {
+    @include flex(center, center);
+
+    nav {
+        @include flex(center, center);
+
+        .page-anchor-btn {
+            line-height: 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+
+            &:not(:first-child) {
+                margin-left: 3rem;
+            }
+
+            &:hover {
+                color: $primery-1;
+            }
+        }
+    }
+}
+
+.open-nav-btn,
+.open-nav-wrap {
+    display: none;
+}
+
+.header-logo {
+    opacity: 1;
+    @include transition();
+
+    strong {
+        font-size: 1.4rem;
+    }
+}
+
+footer {
+    background-color: rgba(205, 227, 216, 0.2);
+
+    .section-grid {
+        padding: 8rem 4rem;
+        border-radius: 0 10rem 0 0;
+        background-color: #fff;
+    }
+
+    .contact-head {
+        margin-bottom: 2rem;
+
+        .point-title {
+            h1 {
+                font-size: 3.2rem;
+                color: $primery-1;
+            }
+
+            @media (min-width: 769px) {
+                div {
+                    width: 0.7rem;
+                    height: 0.7rem;
+                }
+            }
+        }
+
+        strong {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: $primery-2;
+        }
+    }
+
+    .contact-list {
+        dt {
+            color: $text-subColor;
+            padding-bottom: 0.4rem;
+        }
+
+        dd:not(:last-of-type) {
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+.modal {
+    position: fixed;
+    padding: 4rem;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 800;
+    pointer-events: none;
+    @include transition;
+    @include flex;
+
+    .modal-container {
+        width: 100%;
+        transform: translateY(2rem);
+        @include transition;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $text-subColor;
+            border-radius: 1rem;
+
+            &:hover {
+                background-color: $back-subColor;
+            }
+        }
+    }
+
+    &.modal-hide {
+        opacity: 0;
+
+        .modal-container {
+            transform: translateY(2rem);
+            opacity: 0;
+        }
+    }
+
+    &.modal-show {
+        opacity: 1;
+        pointer-events: auto;
+
+        .modal-container {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .icon {
+        font-size: 2rem;
+        color: #fff;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+}
+
+.not-scroll {
+    overflow: hidden;
+}
+
+
+// 992px 이하
+
+@include tablet {
+
+    header {
+        padding: 0 4rem;
+
+        &.active {
+            background-color: #fff;
+
+            .open-nav-btn {
+                span {
+                    background-color: transparent;
+                }
+
+                span::before {
+                    background: $primery-1;
+                    transform: rotate(-225deg);
+                    top: 0px;
+                }
+
+                span::after {
+                    background: $primery-1;
+                    transform: rotate(225deg);
+                    top: 0px;
+                }
+            }
+
+            .open-nav-wrap {
+                opacity: 1;
+                transform: translateY(60px);
+            }
+
+            .header-logo {
+                opacity: 0;
+            }
+        }
+    }
+
+    .header-left-wrap {
+        nav {
+            display: none;
+        }
+    }
+
+    .open-nav-btn {
+        position: relative;
+        height: 50px;
+        width: 26px;
+        @include flex(center, center);
+        z-index: 701;
+
+        span,
+        span::before,
+        span::after {
+            position: absolute;
+            content: '';
+            width: 26px;
+            height: 3px;
+            left: 0;
+            background: $text-color;
+            @include transition($duration: 0.5s, $ease:cubic-bezier(0.77, 0, 0.175, 1));
+        }
+
+        span {
+            position: relative;
+            display: block;
+
+            &::before {
+                top: -8px;
+            }
+
+            &::after {
+                top: 8px;
+            }
+        }
+    }
+
+    .open-nav-wrap {
+        display: block;
+        position: fixed;
+        height: calc(100% - 60px);
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 4rem;
+        background-color: #fff;
+        opacity: 0;
+        transform: translateY(-100%);
+        @include transition($duration:0.5s);
+        z-index: 700;
+
+        nav {
+            @include flex(center, center);
+            flex-direction: column;
+
+            .page-anchor-btn {
+                font-size: 2.2rem;
+                font-weight: bold;
+                margin-bottom:3.2rem;
+                padding:0 1rem 0.5rem;
+                line-height: 3.2rem;
+                position:relative;
+                overflow: hidden;
+
+                &::after {
+                    position:absolute;
+                    content: "";
+                    width:100%;
+                    height:5px;
+                    left:-100%;
+                    bottom:0;
+                    background-color: $primery-2;
+                    @include transition(left);
+                }
+
+                &:hover {
+                    &::after {
+                        left:0%;
+                    }
+                }
+            }
+        }
+    }
+
+    .header-logo strong {
+        font-size: 1.3rem;
+    }
+
+    footer {
+        background-color: #fff;
+
+        .section-grid {
+            background-color: $primery-3;
+        }
+
+        .contact-head strong {
+            color: $back-color;
+        }
+    }
+}
+
+
+// 768px 이하
+@include mobile {
+    body {
+        font-size: 0.9rem;
+    }
+
+    .point-title h3 {
+        font-size: 2.2rem;
+    }
+
+    p.b-text {
+        font-size: 1rem;
+    }
+
+    header {
+        padding:0 2rem;
+        height:60px;
+    }
+
+    .open-nav-btn {
+        width:24px;
+        span,
+        span::before,
+        span::after {
+            height: 2px;
+            width:24px;
+        }
+
+        span::before {
+            top:-7px;
+        }
+        span::after {
+            top:7px;
+        }
+    }
+    .open-nav-wrap {
+        padding: 3rem;
+
+        nav .page-anchor-btn {
+            font-size: 2rem;
+        }
+    }
+
+    .header-logo strong {
+        font-size: 1.2rem;
+    }
+    
+    footer {
+        .section-grid {
+            padding: 5rem 2rem;
+            border-radius: 0 8rem 0 0;
+        }
+
+        .contact-head {
+            .point-title {
+                h1 {
+                    font-size: 2.8rem;
+                }
+            }
+
+            strong {
+                font-size: 1.6rem;
+            }
+        }
+    }
+
+    .modal {
+        padding: 2rem;
+    }
+
+}
+
+
+// 576px 이하
+@include mini {
+    .point-title {
+        h3 {
+            font-size: 2rem;
+        }
+
+        div {
+            width: 0.35rem;
+            height: 0.35rem;
+            background-color: $primery-1;
+        }
+    }
+
+    .loading-circle {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    header {
+        padding: 0 1rem;
+    }
+
+    footer {
+        .section-grid {
+            padding: 5rem 1rem;
+        }
+
+        .contact-head {
+            .point-title {
+                h1 {
+                    font-size: 2.4rem;
+                }
+
+                div {
+                    width: 0.5rem;
+                    height: 0.5rem;
+                }
+            }
+
+            strong {
+                font-size: 1.4rem;
+            }
+        }
+    }
+
+    .modal {
+        padding: 1rem;
+
+        .modal-container::-webkit-scrollbar {
+            width: 6px;
+        }
+    }
+}
