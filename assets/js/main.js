@@ -31,13 +31,13 @@ function projectBackScroll() {
 function projectEventChange() {
     const projectItem = document.querySelectorAll('#project .project-item');
     projectItem.forEach((el, idx) => {
-        el.setAttribute('tabindex','0');
-        el.addEventListener('click', () => { 
-            projectBtn[idx].click(); 
+        el.setAttribute('tabindex', '0');
+        el.addEventListener('click', () => {
+            projectBtn[idx].click();
         });
         el.addEventListener('keydown', (e) => {
-            if(e.key === "Enter") projectBtn[idx].click();
-         });
+            if (e.key === "Enter") projectBtn[idx].click();
+        });
     })
 }
 
@@ -143,20 +143,26 @@ function navToggle() {
     header.classList.toggle('active');
     document.body.classList.contains('active') ? document.body.classList.remove('active') : '';
 
-    if(header.classList.contains('active')) {
-        mobileNav.forEach(el => { el.setAttribute('tabindex', '0'); });
+    if (header.classList.contains('active')) {
+        mobileNav.forEach(el => {
+            el.setAttribute('tabindex', '0');
+        });
     } else {
-        mobileNav.forEach(el => { el.setAttribute('tabindex', '-1'); }); 
+        mobileNav.forEach(el => {
+            el.setAttribute('tabindex', '-1');
+        });
     }
 }
 
 function navTabindexChange(value) {
-    if(!value) paNav.forEach(el => { el.setAttribute('tabindex', '-1'); })
+    if (!value) paNav.forEach(el => {
+        el.setAttribute('tabindex', '-1');
+    })
 }
 
 pageAnchorBtn.forEach(el => {
     el.addEventListener('click', function (e) {
-        if(hd922) navToggle();
+        if (!hd922) navToggle();
         const elementId = e.target.innerHTML;
         document.getElementById(elementId).scrollIntoView({
             behavior: 'smooth',
