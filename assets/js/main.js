@@ -11,16 +11,16 @@ function projectBackScroll() {
         normalSceneHeight += normalScene[i].scrollHeight;
     }
     const scrollSceneHeight = project.scrollHeight;
-    const scrollRatio = ((window.pageYOffset - normalSceneHeight) - (scrollSceneHeight - window.innerHeight)) / (scrollSceneHeight - window.innerHeight);
-    if (window.pageYOffset < normalSceneHeight) {
+    const scrollRatio = ((window.scrollY - normalSceneHeight) - (scrollSceneHeight - window.innerHeight)) / (scrollSceneHeight - window.innerHeight);
+    if (window.scrollY < normalSceneHeight) {
         sceneBackground.style.transform = 'translate3d(0, -100%, 0)';
         sceneBackground.style.opacity = 0;
         sceneBackground.classList.remove('scroll-on');
-    } else if (window.pageYOffset > normalSceneHeight && window.pageYOffset < (normalSceneHeight + (scrollSceneHeight - window.innerHeight))) {
+    } else if (window.scrollY > normalSceneHeight && window.scrollY < (normalSceneHeight + (scrollSceneHeight - window.innerHeight))) {
         sceneBackground.classList.add('scroll-on');
         sceneBackground.style.transform = `translate3d(0, ${Math.round(scrollRatio*100)}%, 0)`;
         sceneBackground.style.opacity = 1;
-    } else if (window.pageYOffset > (normalSceneHeight + (scrollSceneHeight - window.innerHeight))) {
+    } else if (window.scrollY > (normalSceneHeight + (scrollSceneHeight - window.innerHeight))) {
         sceneBackground.style.transform = 'translate3d(0, 0, 0)';
         sceneBackground.style.opacity = 1;
         sceneBackground.classList.remove('scroll-on');
@@ -121,6 +121,11 @@ function aboutSetLayout(hd922) {
 const main = document.getElementById('main');
 const mainImgGrid = document.querySelector('.main-imgGrid');
 const imgBox = document.querySelectorAll('.main-imgBox img');
+
+function mainSetVh() {
+    let vh = window.visualViewport.height;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
 
 // 메인 레이아웃 셋팅
 function mainSetLayout() {
@@ -251,17 +256,17 @@ let hd922 = !matchMedia("screen and (max-width: 992px)").matches;
 
 window.addEventListener('load', () => {
 
+    mainSetVh();
     mainSetLayout();
     navTabindexChange(hd922);
     aboutSetLayout(hd922);
 
     checkOS() ? imgBox.forEach(el => el.className = 'ios-type') : '';
 
-    const yOffset = window.pageYOffset;
     if (hd922) {
-        if (yOffset > project.offsetTop) {
+        if (window.scrollY > project.offsetTop) {
             window.scrollTo({
-                top: yOffset - 1
+                top: window.scrollY - 1
             });
             projectBackScroll();
         }
@@ -282,6 +287,7 @@ window.addEventListener('load', () => {
     });
 
     window.addEventListener('scroll', () => {
+        if (window.scrollY === 0) main.style.height = `${window.visualViewport.height}px`
         if (hd922) projectBackScroll();
     });
 
@@ -289,6 +295,8 @@ window.addEventListener('load', () => {
     window.addEventListener('resize', () => {
         if (width !== window.innerWidth) {
             hd922 = !matchMedia("screen and (max-width: 992px)").matches;
+            mainSetVh();
+            main.style.height = `var(--vh)`
             mainSetLayout();
             navTabindexChange(hd922);
             aboutSetLayout(hd922);

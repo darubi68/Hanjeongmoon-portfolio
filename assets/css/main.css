@@ -1,10 +1,18 @@
-.show-1200, .show-992, .show-768, .show-576 {
+:root {
+  --vh: 100%;
+}
+
+.show-1200,
+.show-992,
+.show-768,
+.show-576 {
   display: none;
 }
 
 #main {
   width: 100%;
   height: 100svh;
+  height: var(--vh);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -509,7 +517,8 @@ section,
   font-size: 1.3rem;
   padding: 1.5rem 0 0.4rem 0;
 }
-.design-list .swiper-button-next, .design-list .swiper-button-prev {
+.design-list .swiper-button-next,
+.design-list .swiper-button-prev {
   color: #4d8d6e;
 }
 
@@ -813,6 +822,8 @@ section,
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
     height: 100%;
     padding: calc(8rem + 50px) 4rem 8rem 4rem;
