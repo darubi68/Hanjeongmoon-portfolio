@@ -147,7 +147,6 @@ const mobileNav = document.querySelectorAll('.open-nav-wrap .page-anchor-btn');
 function navToggle() {
     header.classList.toggle('active');
     document.body.classList.toggle('not-scroll');
-    // document.body.classList.contains('not-scroll') ? document.body.classList.remove('not-scroll') : '';
 
     if (header.classList.contains('active')) {
         mobileNav.forEach(el => {
